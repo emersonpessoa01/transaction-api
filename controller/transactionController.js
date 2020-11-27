@@ -7,12 +7,13 @@ const Transaction = db.transaction;
 //função create(metodo post) do CRUD
 const create = async (req, res) => {
   // const {name, subject, type,value} = req.body
+  //const { description, value, category, year, month, day, yearMonth, yearMonthDay, type } = req.body
   const transaction = new Transaction({
     ...req.body,
   });
 
   try {
-    const data = await transaction.save();//para persistir os dados
+    const data = await transaction.save(); //para persistir os dados
 
     res.send(data);
   } catch (err) {
@@ -27,7 +28,9 @@ const findAll = async (req, res) => {
 
     res.send(data);
   } catch (err) {
-    res.status(400).send({ message: `Erro ao buscar todos transactions ${error}` });
+    res
+      .status(400)
+      .send({ message: `Erro ao buscar todos transactions ${error}` });
   }
 };
 
@@ -77,7 +80,7 @@ const remove = async (req, res) => {
     if (!data) {
       res.send(`Transaction id ${id} nao encontrado`);
     } else {
-    res.send(`Transaction excluido com sucesso - ${data}`);
+      res.send(`Transaction excluido com sucesso - ${data}`);
     }
   } catch (err) {
     res
