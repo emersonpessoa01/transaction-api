@@ -1,10 +1,10 @@
-## Preview:  [App](https://aula-2-4.herokuapp.com/student)
+## Preview:  [App](https://api-transaction-chanceller.herokuapp.com/transaction)
 ## Aula2.4
-- Criação de rota podcast<br>
+- Criação de rota transaction<br>
 - Conexão com MongoDB Atlas<br>
 - Criação de variáveis de ambiente<br>
 - Criação de controller<br>
-- Criado rotas get, post, delete e patch
+- Criado rotas get, post, put e delete
 
 `-npm init -y`<br>
 `-npm install express nodemon mongoose dotenv`<br>
