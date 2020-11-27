@@ -1,1 +1,1 @@
-web: nodemon -r dotenv/config --experimental-modules app.js
+web: nodemon --experimental-modules app.js

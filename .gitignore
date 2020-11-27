@@ -1,3 +1,2 @@
-/node_modules
-.env
-# Procfile(tirar apos criar app na heroku)
+node_modules
+.env 

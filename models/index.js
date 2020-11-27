@@ -1,9 +1,12 @@
-import mongoose from 'mongoose';
-import pokemonModel from "../models/pokemonModel.js"
+//colocando as configurações de banco de dados
+import mongoose from "mongoose";
+import transactionModel from "./transactionModel.js";
 
 const db = {};
-// db.url = process.env.MONGODB;
+//db = informações de banco
+//url, mongoose e podcast = modelo
+// db.url = process.env.MONGOURL;
 db.mongoose = mongoose;
-db.pokemon = pokemonModel(mongoose) 
+db.transaction = transactionModel(mongoose);
 
 export { db };
