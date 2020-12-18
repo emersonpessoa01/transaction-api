@@ -22,15 +22,18 @@ const create = async (req, res) => {
 };
 
 //BUSCAR TUDO(método get)
+// 
 const findAll = async (req, res) => {
+  const { period } = req.query;
   try {
-    const data = await Transaction.find({});
-
-    res.send(data);
-  } catch (err) {
-    res
-      .status(400)
-      .send({ message: `Erro ao buscar todos transactions ${error}` });
+    if (period !== null) {
+      const transactions = await transactionModel.find({});
+      res.send(transactions.filter((m) => m.yearMonth === period));
+    } else {
+      res.send("E necessario informar o parametro period, cujo o valor deve estar no formato yyyy-mm")
+    }
+  } catch (error) {
+    res.status(500).send(err);
   }
 };
 
