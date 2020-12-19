@@ -1,5 +1,5 @@
 ### transaction-api
-#### Preview: [api](https://api-transaction-chanceller.herokuapp.com/transaction)
+#### Preview: [api](https://api-transaction-chanceller.herokuapp.com/api/transaction?period=2019-01)
 - Criação de rota transaction<br>
 - Conexão com MongoDB Atlas<br>
 - Criação de variáveis de ambiente<br>
