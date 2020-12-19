@@ -1,51 +1,42 @@
-//responsavel por chamar o Banco de Dados
-import mongooseDateFormat from "mongoose-date-format";
+//Responsável pela conexão com o banco de dados remoto
+import mongoose from "mongoose";
 
-export default(mongoose)=>{ 
-const transactionSchema = mongoose.Schema({
+let schema = mongoose.Schema({
   description: {
-    type: String,
-    required: true,
+    type:String,
+    require:true,
   },
+  
   value: {
-    type: Number,
-    required: true,
+    type:Number,
+    require:true,
   },
   category: {
-    type: String,
-    required: true,
+    type:String,
+    require:true,
   },
   year: {
-    type: Number,
-    required: true,
+    type:Number,
+    require:true,
   },
-  month: {
-    type: Number,
-    required: true,
+  month:  {
+    type:Number,
+    require:true,
   },
   day: {
-    type: Number,
-    required: true,
+    type:Number,
+    require:true,
   },
-  yearMonth: {
-    type: String,
-    required: true,
+  yearMonth:  {
+    type:String,
+    require:true,
   },
-  yearMonthDay: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-  lastModified: {
-    type: Date,
-    default: Date.now(),
+  yearMonthDay:  {
+    type:String,
+    require:true,
   },
 });
 
-const transactionModel = mongoose.model("transactions", transactionSchema, "transactions"); //para criar student no singular
-transactionSchema.plugin(mongooseDateFormat)
-return transactionModel;
-}
+const transactionModel = mongoose.model("transaction", schema);
+
+export { transactionModel };

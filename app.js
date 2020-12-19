@@ -1,43 +1,58 @@
-import express from 'express'
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
+import express from "express";
 import cors from "cors";
-import { transactionRouter } from "./routes/transactionRouter.js";
-import dotenv from 'dotenv';
+import mongoose from "mongoose";
+import { router } from "./routes/routes.js";
+
+import path from "path";
+import dotenv from "dotenv";
 dotenv.config();
 
-//criando variaveis de ambiente
-// process.env.USER_DB = "emersonpessoa"
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-//Conexao com o MongoDB
+/**
+ * Vinculando o React a api
+ */
+app.use(express.static(path.join("client/build")));
+
+/**
+ * Rota raiz
+ */
+app.get("/api/", (_, res) => {
+  res.send({
+    message:
+      "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
+  });
+});
+
+/**
+ * Rotas principais do app
+ */
+app.use("/api/transaction", router);
+
+/**
+ * Conexão ao Banco de Dados
+ */
 (async () => {
+  console.log("iniciando conexão ao banco de dados...");
+  const { DB_CONNECTION } = process.env;
   try {
-    await mongoose.connect(
-      `mongodb+srv://${process.env.USERDB}:${process.env.PWDDB}@cluster0.cginj.mongodb.net/finalChancellerResolution?retryWrites=true&w=majority`,
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
+    await mongoose.connect(DB_CONNECTION, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("Conectado ao MongoDb Atlas");
   } catch (err) {
     console.log("Erro ao conectar no MongoDB");
   }
 })();
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  console.log("Acessou o Middleware!");
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
-  app.use(cors());
-  next();
-});
-app.use("/transaction", transactionRouter);
-
-app.listen(process.env.PORT || 8080, () => {
-  console.log("Fala Dev -- API STARTED http://localhost:3002");
+/**
+ * Definição de porta e
+ * inicialização do app
+ */
+const APP_PORT = process.env.PORT || 8080;
+app.listen(APP_PORT, () => {
+  console.log(`Servidor iniciado em http://localhost:3002`);
 });
